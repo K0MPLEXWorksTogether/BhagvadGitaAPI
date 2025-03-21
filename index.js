@@ -4,6 +4,10 @@ const app = express();
 const port = 3000;
 
 app.get("/", async (req, res) => {
+  return res.status(200).json({"message": "Welcome to the bhagvad gita API. Available routes are /verse and /audio."})
+})
+
+app.get("/verse", async (req, res) => {
   try {
     const chapter = req.query.chapter;
     const verse = req.query.verse;
