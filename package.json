@@ -1,0 +1,26 @@
+{
+  "name": "bhagvad-gita-playground",
+  "version": "1.0.0",
+  "description": "A place where I try out different aspects of servicing my bhagvad gita data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Abhiram Mangipudi",
+  "license": "ISC",
+  "keywords": [
+    "bhagavad gita",
+    "spirituality",
+    "hinduism",
+    "scripture",
+    "text analysis",
+    "data exploration",
+    "religion"
+  ],
+  "dependencies": {
+    "@libsql/client": "^0.15.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
