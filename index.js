@@ -1,5 +1,5 @@
 const { verseData } = require("./dbUtil.js");
-import { injectSpeedInsights } from "@vercel/speed-insights";
+const { injectSpeedInsights } = require("@vercel/speed-insights");
 const express = require("express");
 const app = express();
 const port = 3000;
