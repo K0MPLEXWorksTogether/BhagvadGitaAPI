@@ -1,10 +1,8 @@
 const { verseData } = require("./dbUtil.js");
-const { injectSpeedInsights } = require("@vercel/speed-insights");
+const { saveMp3, deleteMp3 } = require("./audioUtil.js");
 const express = require("express");
 const app = express();
-const port = 3000;
-
-injectSpeedInsights();
+const port = process.env.PORT;
 
 app.get("/", async (req, res) => {
   return res.status(200).json({
@@ -38,6 +36,37 @@ app.get("/verse", async (req, res) => {
     res
       .status(500)
       .json({ error: "An unexpected error occured. Try again later." });
+  }
+});
+
+app.get("/audio", async (req, res) => {
+  try {
+    const chapter = req.query.chapter;
+    const verse = req.query.verse;
+
+    if (!chapter || !verse || isNaN(chapter) || isNaN(verse)) {
+      return res.status(400).json({
+        error: "Chapter and verse must be numbers, and greater than 0.",
+      });
+    } else {
+      console.log(`Request received for ${chapter}, ${verse}.`);
+    }
+
+    const audioPath = await saveMp3(chapter, verse);
+
+    res.download(audioPath, (err) => {
+      if (err) {
+        console.error("Error occurred during download:", err);
+      } else {
+        console.log("File download finished.");
+      }
+      deleteMp3(audioPath);
+    });
+  } catch (err) {
+    console.error("Error occurred: ", err);
+    res
+      .status(500)
+      .json({ error: "An unexpected error occurred. Try again later." });
   }
 });
 
